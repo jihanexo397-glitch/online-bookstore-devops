@@ -1,0 +1,34 @@
+name: Online Bookstore CI/CD
+on:
+ push:
+   branches:
+     - main
+permissions:
+ contents: read
+ pages: write
+ id-token: write
+jobs:
+ build-and-test:
+   runs-on: ubuntu-latest
+   steps:
+     - name: Checkout Code
+       uses: actions/checkout@v6
+     - name: Test Application
+       run: |
+         python -c "from pathlib import Path; p=Path('index.html'); assert p.exists(), 'File missing'; assert 'Online Bookstore' in p.read_text(); print('Test Passed')"
+     - name: Setup Pages
+       uses: actions/configure-pages@v5
+     - name: Upload Website
+       uses: actions/upload-pages-artifact@v4
+       with:
+         path: '.'
+ deploy:
+   needs: build-and-test
+   runs-on: ubuntu-latest
+   environment:
+     name: github-pages
+   steps:
+     - name: Deploy Website
+       id: deployment
+       uses: actions/deploy-pages@v4
+has context menu
