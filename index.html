@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Online Bookstore</title>
+<style>
+       body {
+           font-family: Arial;
+           text-align: center;
+           background: #f4f4f4;
+           padding: 30px;
+       }
+       .book {
+           background: white;
+           padding: 20px;
+           margin: 15px auto;
+           max-width: 350px;
+           border-radius: 10px;
+       }
+</style>
+</head>
+<body>
+<h1>Online Bookstore</h1>
+<p>Welcome to our online bookstore!</p>
+<h3>Filter Books by Category</h3>
+<select id="category" onchange="filterBooks()">
+<option value="all">All Categories</option>
+<option value="IT">IT</option>
+<option value="Business">Business</option>
+<option value="Science">Science</option>
+</select>
+<div class="book" data-category="IT">
+<h3>Introduction to Cybersecurity</h3>
+<p>Category: IT</p>
+</div>
+<div class="book" data-category="Business">
+<h3>Business Management</h3>
+<p>Category: Business</p>
+</div>
+<div class="book" data-category="Science">
+<h3>Introduction to Science</h3>
+<p>Category: Science</p>
+</div>
+<script>
+function filterBooks() {
+   let category = document.getElementById("category").value;
+   let books = document.querySelectorAll(".book");
+   books.forEach(book => {
+       book.style.display =
+           category === "all" ||
+           book.dataset.category === category
+           ? "block" : "none";
+   });
+}
+</script>
+</body>
+</html>
